@@ -11,8 +11,43 @@ import {
 import { Input } from "@/components/ui/input";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
+import {
+  useSuspenseWorkflow,
+  useUpdateWorkflow,
+} from "@/features/workflows/hooks/use-workflows";
 import { useUpdateWorkflowName } from "@/features/workflows/hooks/use-workflows";
+import { Button } from "@/components/ui/button";
+import { SaveIcon } from "lucide-react";
+import { useAtomValue } from "jotai";
+import { editorAtom } from "../store/atoms";
+
+export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
+  const editor = useAtomValue(editorAtom);
+  const saveWorkflow = useUpdateWorkflow();
+
+  const handleSave = () => {
+    if (!editor) {
+      return;
+    }
+    const nodes = editor.getNodes();
+    const edges = editor.getEdges();
+
+    saveWorkflow.mutateAsync({
+      id: workflowId,
+      nodes,
+      edges,
+    });
+  };
+
+  return (
+    <div className="ml-auto flex items-center gap-2">
+      <Button size="sm" onClick={handleSave} disabled={saveWorkflow.isPending}>
+        <SaveIcon className="size-4 mr-2" />
+        Save
+      </Button>
+    </div>
+  );
+};
 
 export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
   const { data: workflow } = useSuspenseWorkflow(workflowId);
