@@ -142,6 +142,7 @@ export const EditorHeader = ({ workflowId }: { workflowId: string }) => {
       <SidebarTrigger />
       <div className="flex flex-row gap-x-4 w-full items-center">
         <EditorBreadcrumbs workflowId={workflowId} />
+        <EditorSaveButton workflowId={workflowId} />
       </div>
     </header>
   );

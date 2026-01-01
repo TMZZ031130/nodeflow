@@ -88,7 +88,6 @@ export const workflowRouter = createTRPCRouter({
                 position: node.position,
                 data: node.data || {},
                 name: node.type || "",
-                workflowId: id,
               })),
             },
           },
@@ -98,7 +97,6 @@ export const workflowRouter = createTRPCRouter({
             },
             createMany: {
               data: edges.map((edge) => ({
-                workflow: id,
                 fromNodeId: edge.source,
                 toNodeId: edge.target,
                 fromOutput: edge.sourceHandle || "main",
