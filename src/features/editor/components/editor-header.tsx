@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { SaveIcon } from "lucide-react";
 import { useAtomValue } from "jotai";
 import { editorAtom } from "../store/atoms";
+import { Spinner } from "@/components/ui/spinner";
 
 export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   const editor = useAtomValue(editorAtom);
@@ -42,7 +43,11 @@ export const EditorSaveButton = ({ workflowId }: { workflowId: string }) => {
   return (
     <div className="ml-auto flex items-center gap-2">
       <Button size="sm" onClick={handleSave} disabled={saveWorkflow.isPending}>
-        <SaveIcon className="size-4 mr-2" />
+        {saveWorkflow.isPending ? (
+          <Spinner className="size-4 mr-2" />
+        ) : (
+          <SaveIcon className="size-4 mr-2" />
+        )}
         Save
       </Button>
     </div>
