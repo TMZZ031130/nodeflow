@@ -3,6 +3,7 @@ import { NonRetriableError } from "inngest";
 import ky, { Options as KyOption } from "ky";
 
 type HttpRequestData = {
+  variableName?: string;
   endpoint?: string;
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: string;
@@ -18,6 +19,10 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
     throw new NonRetriableError("No endpoint");
   }
 
+  if (!data.variableName) {
+    throw new NonRetriableError("No variableName");
+  }
+
   const result = await step.run("http-request", async () => {
     const endpoint = data.endpoint!;
     const method = data.method || "GET";
@@ -26,20 +31,33 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async ({
 
     if (["POST", "PUT", "PATCH"].includes(method)) {
       options.body = data.body;
+      options.headers = {
+        "Content-Type": "application/json",
+      };
     }
     const response = await ky(endpoint, options);
     const contentType = response.headers.get("content-type");
     const responseData = contentType?.includes("application/json")
       ? await response.json()
       : await response.text();
-
-    return {
-      ...context,
+    const responsePayload = {
       httpResponse: {
         status: response.status,
         statusText: response.statusText,
         data: responseData,
       },
+    };
+
+    if (data.variableName) {
+      return {
+        ...context,
+        [data.variableName]: responsePayload,
+      };
+    }
+
+    return {
+      ...context,
+      ...responsePayload,
     };
   });
   return result;

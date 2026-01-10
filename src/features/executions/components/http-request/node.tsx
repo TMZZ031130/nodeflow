@@ -18,8 +18,9 @@ import { HttpRequestDialog } from "./dialog";
 import type { HttpRequestFormValues } from "./dialog";
 
 type HttpRequestNodeData = {
+  variableName?: string;
   endpoint?: string;
-  method?: "GET" | "POST" | "PUT" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: string;
 };
 type HttpRequestNodeType = Node<HttpRequestNodeData>;
