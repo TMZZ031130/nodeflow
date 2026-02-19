@@ -14,7 +14,7 @@ import {
 } from "@/components/node-status-indicator";
 
 interface BaseTriggerNodeProps extends NodeProps {
-  icon: LucideIcon;
+  icon: LucideIcon | string;
   name: string;
   description?: string;
   children?: ReactNode;
