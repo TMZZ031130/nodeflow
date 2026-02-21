@@ -30,6 +30,9 @@ export async function POST(request: NextRequest) {
 
     await sendWorkflowExecution({
       workflowId,
+      initialData: {
+        googleForm: formData,
+      },
     });
   } catch (error) {
     console.log("Google form webhook error:", error);
