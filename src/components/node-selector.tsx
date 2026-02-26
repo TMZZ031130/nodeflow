@@ -2,7 +2,7 @@
 
 import { createId } from "@paralleldrive/cuid2";
 import { useReactFlow } from "@xyflow/react";
-import { GlobeIcon, MousePointerIcon } from "lucide-react";
+import { GlobeIcon, MousePointerIcon, Bot } from "lucide-react";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import {
@@ -44,6 +44,12 @@ const executionNodes: NodeTypeOption[] = [
     icon: GlobeIcon,
     description: "Makes an HTTP request",
     type: NodeType.HTTP_REQUEST,
+  },
+  {
+    label: "AI",
+    icon: Bot,
+    description: "Makes an AI agent",
+    type: NodeType.AI_NODE,
   },
 ];
 

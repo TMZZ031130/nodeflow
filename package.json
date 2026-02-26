@@ -11,6 +11,7 @@
     "ngrok:dev": "ngrok http --url=unshrunken-presley-commonsensibly.ngrok-free.dev 3000"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.31",
     "@hookform/resolvers": "^5.2.2",
     "@inngest/realtime": "^0.4.5",
     "@paralleldrive/cuid2": "^3.0.6",
@@ -48,6 +49,7 @@
     "@trpc/server": "^11.8.0",
     "@trpc/tanstack-react-query": "^11.8.0",
     "@xyflow/react": "^12.10.0",
+    "ai": "^6.0.99",
     "better-auth": "^1.4.7",
     "class-variance-authority": "^0.7.1",
     "client-only": "^0.0.1",
