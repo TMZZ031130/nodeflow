@@ -14,6 +14,7 @@ import { aiNodeChannel } from "@/inngest/channels/ai-node";
 type AiNodeData = {
   variableName?: string;
   model?: string;
+  credentialId?: string;
   systemPrompt?: string;
   userPrompt?: string;
 };

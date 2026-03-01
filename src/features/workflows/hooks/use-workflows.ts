@@ -33,7 +33,7 @@ export const useCreateWorkflow = () => {
   );
 };
 
-export const useRemoveWorkflow = (id: string) => {
+export const useRemoveWorkflow = () => {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 

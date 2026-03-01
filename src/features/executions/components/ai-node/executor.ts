@@ -4,6 +4,7 @@ import Handlebars from "handlebars";
 import { aiNodeChannel } from "@/inngest/channels/ai-node";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { generateText } from "ai";
+import prisma from "@/lib/db";
 
 Handlebars.registerHelper("json", (context) => {
   const jsonString = JSON.stringify(context, null, 2);
@@ -14,6 +15,7 @@ Handlebars.registerHelper("json", (context) => {
 type AiNodeData = {
   variableName?: string;
   // model?: string;
+  credentialId?: string;
   systemPrompt?: string;
   userPrompt?: string;
 };
@@ -43,6 +45,17 @@ export const aiNodeExecutor: NodeExecutor<AiNodeData> = async ({
     throw new NonRetriableError("Variable name is missing");
   }
 
+  if (!data.credentialId) {
+    await publish(
+      aiNodeChannel().status({
+        nodeId,
+        status: "error",
+      }),
+    );
+
+    throw new NonRetriableError("Credential is missing");
+  }
+
   if (!data.userPrompt) {
     await publish(
       aiNodeChannel().status({
@@ -60,10 +73,22 @@ export const aiNodeExecutor: NodeExecutor<AiNodeData> = async ({
 
   const userPrompt = Handlebars.compile(data.userPrompt)(context);
 
-  const credentialValue = process.env.GOOGLE_GEMINI_API_KEY;
+  // const credentialValue = process.env.GOOGLE_GEMINI_API_KEY;
+
+  const credential = await step.run("get-credential", () => {
+    return prisma.credential.findUnique({
+      where: {
+        id: data.credentialId,
+      },
+    });
+  });
+
+  if (!credential) {
+    throw new NonRetriableError("credential not found");
+  }
 
   const google = createGoogleGenerativeAI({
-    apiKey: credentialValue,
+    apiKey: credential.value,
   });
 
   try {
