@@ -23,6 +23,7 @@ type AiNodeData = {
 export const aiNodeExecutor: NodeExecutor<AiNodeData> = async ({
   data,
   nodeId,
+  userId,
   context,
   step,
   publish,
@@ -79,6 +80,7 @@ export const aiNodeExecutor: NodeExecutor<AiNodeData> = async ({
     return prisma.credential.findUnique({
       where: {
         id: data.credentialId,
+        userId,
       },
     });
   });
