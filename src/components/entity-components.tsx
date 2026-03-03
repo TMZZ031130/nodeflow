@@ -30,7 +30,7 @@ import {
 type EntityHeaderProps = {
   title: string;
   description?: string;
-  newButtonLabel: string;
+  newButtonLabel?: string;
   disabled?: boolean;
   isCreating?: boolean;
 } & (
@@ -263,7 +263,7 @@ export const EntityList = <T,>({
 interface EntityItemProps {
   href?: string;
   title: string;
-  subtitle?: string;
+  subtitle?: string | React.ReactNode;
   image?: React.ReactNode;
   actions?: React.ReactNode;
   onRemove?: () => void | Promise<void>;

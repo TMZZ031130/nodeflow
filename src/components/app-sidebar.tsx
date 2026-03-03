@@ -1,13 +1,9 @@
 "use client";
 
 import {
-  CreditCardIcon,
   JoystickIcon,
-  HomeIcon,
-  SettingsIcon,
   KeyIcon,
   LogOutIcon,
-  StarIcon,
   FolderOpenIcon,
 } from "lucide-react";
 import Image from "next/image";
@@ -25,7 +21,6 @@ import {
   SidebarMenu,
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
-import { auth } from "@/lib/auth";
 
 const menuItems = [
   {
@@ -48,7 +43,6 @@ const menuItems = [
 export const AppSidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const signOut = authClient.signOut;
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -88,32 +82,6 @@ export const AppSidebar = () => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              tooltip="Upgrade to Pro"
-              asChild
-              className="gap-x-4 h-10 px-4"
-              //   onClick={() => authClient.checkout({ slug: "pro" })}
-            >
-              <Link href="/" prefetch>
-                <StarIcon className="h-4 w-4" />
-                <span>Upgrade to Pro</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              tooltip={"Upgrade to Pro"}
-              asChild
-              className="gap-x-4 h-10 px-4"
-              //   onClick={() => authClient.customer.portal()}
-            >
-              <Link href="/" prefetch>
-                <CreditCardIcon className="h-4 w-4" />
-                <span>Billing Portal</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Sign Out"
