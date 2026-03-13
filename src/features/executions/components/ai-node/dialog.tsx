@@ -55,7 +55,7 @@ const formSchema = z.object({
   variableName: z
     .string()
     .min(1, { message: "variable name is required" })
-    .regex(/^[A-Za_z_$][A-Za-z0-9_$]*$/, {
+    .regex(/^[A-Za-z_$][A-Za-z0-9_$]*$/, {
       message:
         " name must start with a letter or underscore and container only letters, numbers, and underscore",
     }),

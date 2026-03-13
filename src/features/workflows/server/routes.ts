@@ -5,6 +5,7 @@ import { z } from "zod";
 import { NodeType } from "@/generated/prisma/enums";
 import type { Edge, Node } from "@xyflow/react";
 import { sendWorkflowExecution } from "@/inngest/utils";
+import { createId } from "@paralleldrive/cuid2";
 
 export const workflowRouter = createTRPCRouter({
   execute: protectedProcedure
@@ -26,7 +27,7 @@ export const workflowRouter = createTRPCRouter({
   create: protectedProcedure.mutation(({ ctx }) => {
     return prisma.workflow.create({
       data: {
-        name: "Random",
+        name: `Workflow-${createId().slice(0, 10)}`,
         userId: ctx.auth.user.id,
         nodes: {
           create: {

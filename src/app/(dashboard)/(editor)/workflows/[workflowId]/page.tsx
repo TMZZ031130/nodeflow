@@ -15,8 +15,6 @@ interface PageProps {
 }
 
 const Page = async ({ params }: PageProps) => {
-  await requireAuth();
-
   const { workflowId } = await params;
   prefetchWorkflow(workflowId);
 

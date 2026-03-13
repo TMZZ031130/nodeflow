@@ -49,7 +49,7 @@ export const AppSidebar = () => {
         <SidebarMenuButton asChild className="gap-x-4 h-12 px-4">
           <Link href="/workflows" prefetch>
             <Image src="logo.svg" alt="NodeBase" width={32} height={32} />
-            <span className="text-sm font-semibold">NodeBase</span>
+            <span className="text-sm font-semibold">NodeFlow</span>
           </Link>
         </SidebarMenuButton>
       </SidebarHeader>

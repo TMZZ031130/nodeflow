@@ -46,7 +46,7 @@ export const CredentialsList = () => {
       items={credentials.data.items}
       getKey={(credential) => credential.id}
       renderItem={(credential) => <CredentialItem data={credential} />}
-      emptyView={<EmptyView onNew={() => {}} />}
+      emptyView={<CredentialsEmpty />}
     />
   );
 };

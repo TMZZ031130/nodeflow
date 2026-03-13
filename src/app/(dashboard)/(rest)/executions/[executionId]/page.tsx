@@ -16,7 +16,6 @@ interface PageProps {
 }
 
 const Page = async ({ params }: PageProps) => {
-  await requireAuth();
   const { executionId } = await params;
   prefetchExecution(executionId);
 
